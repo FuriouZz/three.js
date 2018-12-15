@@ -200,6 +200,7 @@ function WebGLProgram( renderer, code, material, parameters ) {
 
 	var extensions = material.extensions;
 	var defines = material.defines;
+	var version = material.version;
 
 	var vertexShader = material.__webglShader.vertexShader;
 	var fragmentShader = material.__webglShader.fragmentShader;
@@ -278,6 +279,8 @@ function WebGLProgram( renderer, code, material, parameters ) {
 
 	//
 
+	var customVersion = version ? version : ''
+
 	var customExtensions = generateExtensions( extensions, parameters, renderer.extensions );
 
 	var customDefines = generateDefines( defines );
@@ -292,6 +295,7 @@ function WebGLProgram( renderer, code, material, parameters ) {
 
 		prefixVertex = [
 
+			customVersion,
 			customDefines,
 
 			'\n'
@@ -300,6 +304,7 @@ function WebGLProgram( renderer, code, material, parameters ) {
 
 		prefixFragment = [
 
+			customVersion,
 			customExtensions,
 			customDefines,
 
@@ -310,6 +315,7 @@ function WebGLProgram( renderer, code, material, parameters ) {
 	} else {
 
 		prefixVertex = [
+			customVersion,
 
 			'precision ' + parameters.precision + ' float;',
 			'precision ' + parameters.precision + ' int;',
@@ -416,6 +422,7 @@ function WebGLProgram( renderer, code, material, parameters ) {
 
 		prefixFragment = [
 
+			customVersion,
 			customExtensions,
 
 			'precision ' + parameters.precision + ' float;',
